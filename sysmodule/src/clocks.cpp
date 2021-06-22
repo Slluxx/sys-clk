@@ -4,7 +4,7 @@
  * <p-sam@d3vs.net>, <natinusala@gmail.com>, <m4x@m4xw.net>
  * wrote this file. As long as you retain this notice you can do whatever you
  * want with this stuff. If you meet any of us some day, and you think this
- * stuff is worth it, you can buy us a beer in return.  - The sys-clk authors
+ * stuff is worth it, you can buy us a beer in return.  - The sys-cw authors
  * --------------------------------------------------------------------------
  */
 
@@ -186,53 +186,53 @@ void Clocks::ResetToStock()
 
 SysClkProfile Clocks::GetCurrentProfile()
 {
-    std::uint32_t mode = 0;
-    Result rc = apmExtGetPerformanceMode(&mode);
-    ASSERT_RESULT_OK(rc, "apmExtGetPerformanceMode");
+    // std::uint32_t mode = 0;
+    // Result rc = apmExtGetPerformanceMode(&mode);
+    // ASSERT_RESULT_OK(rc, "apmExtGetPerformanceMode");
 
-    if(mode)
-    {
-        return SysClkProfile_Docked;
-    }
+    // if(mode)
+    // {
+    //     return SysClkProfile_Docked;
+    // }
 
-    PsmChargerType chargerType;
+    // PsmChargerType chargerType;
 
-    rc = psmGetChargerType(&chargerType);
-    ASSERT_RESULT_OK(rc, "psmGetChargerType");
+    // rc = psmGetChargerType(&chargerType);
+    // ASSERT_RESULT_OK(rc, "psmGetChargerType");
 
-    if(chargerType == PsmChargerType_EnoughPower)
-    {
-        return SysClkProfile_HandheldChargingOfficial;
-    }
-    else if(chargerType == PsmChargerType_LowPower)
-    {
-        return SysClkProfile_HandheldChargingUSB;
-    }
+    // if(chargerType == PsmChargerType_EnoughPower)
+    // {
+    //     return SysClkProfile_HandheldChargingOfficial;
+    // }
+    // else if(chargerType == PsmChargerType_LowPower)
+    // {
+    //     return SysClkProfile_HandheldChargingUSB;
+    // }
 
     return SysClkProfile_Handheld;
 }
 
 void Clocks::SetHz(SysClkModule module, std::uint32_t hz)
 {
-    Result rc = 0;
+    // Result rc = 0;
 
-    if(hosversionAtLeast(8,0,0))
-    {
-        ClkrstSession session = {0};
+    // if(hosversionAtLeast(8,0,0))
+    // {
+    //     ClkrstSession session = {0};
 
-        rc = clkrstOpenSession(&session, Clocks::GetPcvModuleId(module), 3);
-        ASSERT_RESULT_OK(rc, "clkrstOpenSession");
+    //     rc = clkrstOpenSession(&session, Clocks::GetPcvModuleId(module), 3);
+    //     ASSERT_RESULT_OK(rc, "clkrstOpenSession");
 
-        rc = clkrstSetClockRate(&session, hz);
-        ASSERT_RESULT_OK(rc, "clkrstSetClockRate");
+    //     rc = clkrstSetClockRate(&session, hz);
+    //     ASSERT_RESULT_OK(rc, "clkrstSetClockRate");
 
-        clkrstCloseSession(&session);
-    }
-    else
-    {
-        rc = pcvSetClockRate(Clocks::GetPcvModule(module), hz);
-        ASSERT_RESULT_OK(rc, "pcvSetClockRate");
-    }
+    //     clkrstCloseSession(&session);
+    // }
+    // else
+    // {
+    //     rc = pcvSetClockRate(Clocks::GetPcvModule(module), hz);
+    //     ASSERT_RESULT_OK(rc, "pcvSetClockRate");
+    // }
 }
 
 std::uint32_t Clocks::GetCurrentHz(SysClkModule module)

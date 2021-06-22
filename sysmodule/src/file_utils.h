@@ -4,7 +4,7 @@
  * <p-sam@d3vs.net>, <natinusala@gmail.com>, <m4x@m4xw.net>
  * wrote this file. As long as you retain this notice you can do whatever you
  * want with this stuff. If you meet any of us some day, and you think this
- * stuff is worth it, you can buy us a beer in return.  - The sys-clk authors
+ * stuff is worth it, you can buy us a beer in return.  - The sys-cw authors
  * --------------------------------------------------------------------------
  */
 
@@ -19,9 +19,9 @@
 
 #define FILE_CONFIG_DIR "/config/" TARGET
 #define FILE_FLAG_CHECK_INTERVAL_NS 5000000000ULL
-#define FILE_CONTEXT_CSV_PATH FILE_CONFIG_DIR "/context.csv"
-#define FILE_LOG_FLAG_PATH FILE_CONFIG_DIR "/log.flag"
-#define FILE_LOG_FILE_PATH FILE_CONFIG_DIR "/log.txt"
+#define FILE_CONTEXT_CSV_PATH FILE_CONFIG_DIR "/cw-context.csv"
+#define FILE_LOG_FLAG_PATH FILE_CONFIG_DIR "/cw-log.flag"
+#define FILE_LOG_FILE_PATH FILE_CONFIG_DIR "/cw-log.txt"
 
 class FileUtils
 {

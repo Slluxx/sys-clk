@@ -4,7 +4,7 @@
  * <p-sam@d3vs.net>, <natinusala@gmail.com>, <m4x@m4xw.net>
  * wrote this file. As long as you retain this notice you can do whatever you
  * want with this stuff. If you meet any of us some day, and you think this
- * stuff is worth it, you can buy us a beer in return.  - The sys-clk authors
+ * stuff is worth it, you can buy us a beer in return.  - The sys-cw authors
  * --------------------------------------------------------------------------
  */
 
@@ -50,18 +50,18 @@ Config *Config::CreateDefault()
 
 void Config::Load()
 {
-    FileUtils::LogLine("[cfg] Reading %s", this->path.c_str());
+    // FileUtils::LogLine("[cfg] Reading %s", this->path.c_str());
 
     this->Close();
-    this->mtime = this->CheckModificationTime();
-    if(!this->mtime)
-    {
-        FileUtils::LogLine("[cfg] Error finding file");
-    }
-    else if (!ini_browse(&BrowseIniFunc, this, this->path.c_str()))
-    {
-        FileUtils::LogLine("[cfg] Error loading file");
-    }
+    // this->mtime = this->CheckModificationTime();
+    // if(!this->mtime)
+    // {
+    //     FileUtils::LogLine("[cfg] Error finding file");
+    // }
+    // else if (!ini_browse(&BrowseIniFunc, this, this->path.c_str()))
+    // {
+    //     FileUtils::LogLine("[cfg] Error loading file");
+    // }
 
     this->loaded = true;
 }

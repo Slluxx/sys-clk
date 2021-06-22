@@ -1,8 +1,8 @@
 {
-	"name": "sys:clk",
-	"title_id": "0x00FF0000636C6BFF",
-	"title_id_range_min": "0x00FF0000636C6BFF",
-	"title_id_range_max": "0x00FF0000636C6BFF",
+	"name": "sys:cw",
+	"title_id": "0x00FF0000636C6BF1",
+	"title_id_range_min": "0x00FF0000636C6BF1",
+	"title_id_range_max": "0x00FF0000636C6BF1",
 	"main_thread_stack_size": "0x00004000",
 	"main_thread_priority": 49,
 	"default_cpu_id": 3,
@@ -18,7 +18,7 @@
 		"*"
 	],
 	"service_host": [
-		"sys:clk"
+		"sys:cw"
 	],
 	"kernel_capabilities": [
 		{

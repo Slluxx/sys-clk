@@ -14,7 +14,7 @@
 #include "clocks.h"
 
 #define SYSCLK_IPC_API_VERSION 0
-#define SYSCLK_IPC_SERVICE_NAME "sys:clk"
+#define SYSCLK_IPC_SERVICE_NAME "sys:cw"
 
 enum SysClkIpcCmd
 {
