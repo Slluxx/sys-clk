@@ -142,7 +142,13 @@ void manageClingWrap(uint64_t oldTitleId, uint64_t newTitleId){
         FileUtils::LogLine("[CLINGWRAP] Target found");
 
         if (std::filesystem::exists("sdmc:/bootloader/patches.ini")){
-            FileUtils::LogLine("[CLINGWRAP] patches exists -> rename");
+            FileUtils::LogLine("[CLINGWRAP] (/patches.ini) - exists");
+
+            if (std::filesystem::exists("sdmc:/bootloader/_patchesCW.ini")){
+                FileUtils::LogLine("[CLINGWRAP] (/patches.ini) - deleting already existing backup");
+                std::filesystem::remove("sdmc:/bootloader/_patchesCW.ini");
+            }
+            FileUtils::LogLine("[CLINGWRAP] (/patches.ini) - creating backup");
             std::filesystem::rename("sdmc:/bootloader/patches.ini", "sdmc:/bootloader/_patchesCW.ini");
         }
 
@@ -150,22 +156,27 @@ void manageClingWrap(uint64_t oldTitleId, uint64_t newTitleId){
         //     FileUtils::LogLine("[CLINGWRAP] bootloader exists -> rename");
         //     std::filesystem::rename("sdmc:/bootloader", "sdmc:/_b0otloader");
         // }
-        // if (dirExists("sdmc:/atmosphere/kips")){
-        //     FileUtils::LogLine("[CLINGWRAP] atmosphere/kips exists -> rename");
-        //     std::filesystem::rename("sdmc:/atmosphere/kips", "sdmc:/atmosphere/_k1ps");
-        // }
+        if (dirExists("sdmc:/atmosphere/kips")){
+            FileUtils::LogLine("[CLINGWRAP] (/kips/) - exists");
+            if (dirExists("sdmc:/atmosphere/_k1ps")){
+                FileUtils::LogLine("[CLINGWRAP] (/kips/) - deleting already existing backup");
+                std::filesystem::remove_all("sdmc:/atmosphere/_k1ps");
+            }
+            FileUtils::LogLine("[CLINGWRAP] (/kips/) - creating backup");
+            std::filesystem::rename("sdmc:/atmosphere/kips", "sdmc:/atmosphere/_k1ps");
+        }
 
     } else if (formatTid(oldTitleId) == "050000BADDAD0000") {
         FileUtils::LogLine("[CLINGWRAP] Target exited");
 
         if (std::filesystem::exists("sdmc:/bootloader/patches.ini")){
-            FileUtils::LogLine("[CLINGWRAP] patches already exists -> skipping");
+            FileUtils::LogLine("[CLINGWRAP] (/patches.ini) - exists, skip restoring backup");
         } else {
             if (std::filesystem::exists("sdmc:/bootloader/_patchesCW.ini")){
-                FileUtils::LogLine("[CLINGWRAP] backup patches exists -> renaming to patches");
+                FileUtils::LogLine("[CLINGWRAP] (/patches.ini) - restoring backup");
                 std::filesystem::rename("sdmc:/bootloader/_patchesCW.ini", "sdmc:/bootloader/patches.ini");
             } else {
-                FileUtils::LogLine("[CLINGWRAP] clingwrap patches does not exist too -> OH NO");
+                FileUtils::LogLine("[CLINGWRAP] (/patches.ini) - no original and no backup found!");
             }
         }
 
@@ -181,16 +192,16 @@ void manageClingWrap(uint64_t oldTitleId, uint64_t newTitleId){
         //     }
         // }
 
-        // if (dirExists("sdmc:/atmosphere/kips")){
-        //     FileUtils::LogLine("[CLINGWRAP] bootloader already exists -> skipping");
-        // } else {
-        //     if (dirExists("sdmc:/atmosphere/_k1ps")){
-        //         FileUtils::LogLine("[CLINGWRAP] clingk1ps exists -> renaming to kips");
-        //         std::filesystem::rename("sdmc:/atmosphere/_k1ps", "sdmc:/bootloader");
-        //     } else {
-        //         FileUtils::LogLine("[CLINGWRAP] clingk1ps does not exist -> OH NO");
-        //     }
-        // }
+        if (dirExists("sdmc:/atmosphere/kips")){
+            FileUtils::LogLine("[CLINGWRAP] (/kips/) - existing, skip restoring backup");
+        } else {
+            if (dirExists("sdmc:/atmosphere/_k1ps")){
+                FileUtils::LogLine("[CLINGWRAP] (/kips/) - restoring backup");
+                std::filesystem::rename("sdmc:/atmosphere/_k1ps", "sdmc:/bootloader");
+            } else {
+                FileUtils::LogLine("[CLINGWRAP] (/kips/) - no original and no backup found!");
+            }
+        }
 
 
     } else {
